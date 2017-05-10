@@ -1,152 +1,27 @@
-* Templates
-#+NAME: header
-#+BEGIN_SRC browser :out header.png
-<html>
-<head>
-<meta charset="UTF-8" />
-  <title>Página do prof. Scorciapino</title>
-                     <style type="text/css">
-                     body{
-  background: url("baroque.png");
-  }
-hr{
-width: 90%;
-height: 1px;
-}
-li{
-margin-bottom: 0.4em;
+* Generators
 
-}
+#+BEGIN_SRC shell :results verbatim
+rm -Rf out
+mkdir out
 
-#titulo{
-color: black;
-text-decoration: underline;
-}
-#moldura{
-width: 800px;
-margin-left: auto;
-margin-right: auto;
-padding: 1em;
-background-color: rgba(255,255,255,0.7);
-}
-#menu{
-background-color: rgba(110,25,25,0.8);
-color: yellow;
-text-align: justify;
-padding: 0.2em;
-padding-left: 1em;
-padding-right: 1em;
-margin: 1em;
-margin-left: -2em;
-margin-right: -2em;
-}
-#menu *{
-display: inline;
-}
-#menu span {
-display: inline-block;
-position: relative;
-width: 100%;
-height: 0;
-}
-#menu a{
-color: yellow;
-text-decoration: underline;
-}
-#menu a:hover{
-color: orange;
-}
+echo "Copying assets"
+cp assets/* out/
 
-a{
-color: "#3333ff";
-}
-a:hover{
-text-decoration: none;
-color: "#CCCCFF";
-}
-p.assinatura{
-  font-style: italic;
-}
-</style>
-</head>
-<body>
-<div id="moldura">
-  <h1 id="titulo">Professor Antonio Scorciapino</h1>
-  <div id="menu">
-  <ul>
-  <li><a href="index.php">Início</a></li>
-  <li><a href="livro.php">Livro</a></li>
-  <li><a href="disciplinas.php">Cursos</a></li>
-  <li><a href="publicacoes.php">Publicações</a></li>
-  <li><a href="links.php">Links</a></li>
-  </ul>
-  <span></span>
-  </div>
-  <div id="corpo">
+for page in pages/*; do 
+  file=${page/pages\//}
+  echo Processing $file;
+  cat templates/header.html > out/$file
+  cat $page >> out/$file
+  cat templates/footer.html >> out/$file
+
+  
+done
 
 #+END_SRC
 
-
-#+NAME: footer
-#+BEGIN_SRC browser
-
-</div>
-</div>
-</body>
-</html>
-#+END_SRC
-
-* Pages
-
-#+NAME: index
-#+BEGIN_SRC browser :out olar.png
-{{header}}
-<p class="chamada">Seja bem-vindo, caro aluno!</p>
-<img src="antonio.jpg" />
-<p>Clicando nos ícones acima, terá acesso aos materiais disponíveis para um melhor acompanhamento das disciplinas ministradas por mim na Universidade São Judas Tadeu. </p>
-<p>Não se esqueça de visitar os links deste site, eles lhe direcionarão a sites de extrema pertinência ao seu aprimoramento profissional.</p>
-<p class="assinatura">-Professor Antonio Scorciapino</p>
-{{footer}}
-#+END_SRC
-
-#+RESULTS: index
-[[file:olar.png]]
-
-
-#+NAME: livro
-#+BEGIN_SRC browser
-{{header}}
-<h3>Matemática Financeira com HP-12c</h3>
-<img src="livro.jpg" />
-<p> O texto deste livro, estruturado de forma clara e objetiva, fornece ao leitor os conceitos básicos da Matemática Financeira usada no dia-a-dia. </p>
-<p> Ele é o resultado de vários cursos de Matemática Financeira com HP-12C, ministrados pelo autor em universidades e empresas há mais de 20 anos. </p>
-<p> O livro poderá ser utilizado como material de apoio na disciplina de Matemática Financeira, bem como em outras matérias que exijam como pré-requisitos os conceitos de matemática financeira, principalmente nos cursos de Ciências Econômicas, Administrativas e Contábeis. </p>
-<p><i>O livro está disponível na biblioteca e na livraria do térreo da Universidade São Judas. </i></p>
-{{footer}}
-#+END_SRC
-
-
-#+NAME: links
-#+BEGIN_SRC browser
-{{header}}
-<h3>Links</h3>
-<ul>
-<li><a href="http://www.fundacaolemann.org.br/khanportugues/">Fundação Lemann - Aulas traduzidas da Khan Academy</a></li>
-<li><a href="http://www.amcham.com.br/">AMCHAM Brasil</a></li>
-<li><a href="http://www.ibge.gov.br/english/">IBGE</a></li>
-</ul>
-{{footer}}
-#+END_SRC
-
-
-#+NAME: publicações
-#+BEGIN_SRC browser
-{{header}}
-<h3>Publicações recentes</h3>
-<ul>
-<li><a href="pub/fatoreduc.doc">Uma pesquisa sobre os fatores educacionais condicionantes para o bom desempenho de executivos em marketing</a></li>
-<li><a href="pub/analisedec.doc">Análise das decisões na incerteza, aplicada às empresas: um exemplo de aplicação em marketing</a></li>
-<li><a href="pub/fluxos_caixa_risco.doc">Fluxos de caixa em condições de risco</a></li>
-</ul>
-{{footer}}
-#+END_SRC
+#+RESULTS:
+: Copying assets
+: Processing index.html
+: Processing links.html
+: Processing livro.html
+: Processing publicacoes.html
